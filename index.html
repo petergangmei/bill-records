@@ -9,126 +9,251 @@
     <style>
         body {
             background-color: #f8f9fa;
-        }
-        .header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 2rem 0;
-            margin-bottom: 2rem;
-        }
-        .filter-section {
-            background: white;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            padding: 1.5rem;
-            margin-bottom: 2rem;
-        }
-        .data-table {
-            background: white;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            overflow: hidden;
-        }
-        .table th {
-            background-color: #495057;
-            color: white;
-            font-weight: 500;
-            border: none;
-            padding: 1rem 0.75rem;
-        }
-        .table td {
-            padding: 0.75rem;
-            vertical-align: middle;
-        }
-        .badge-fresh { background-color: #28a745; }
-        .badge-frozen { background-color: #007bff; }
-        .badge-dairy { background-color: #ffc107; color: #212529; }
-        .badge-dry { background-color: #6c757d; }
-        .badge-others { background-color: #17a2b8; }
-        .stats-card {
-            background: white;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            padding: 1.5rem;
-            text-align: center;
-            margin-bottom: 1rem;
-        }
-        .stats-number {
-            font-size: 2rem;
-            font-weight: bold;
-            color: #495057;
-        }
-        .stats-label {
-            color: #6c757d;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             font-size: 0.9rem;
         }
-        .search-input {
-            border-radius: 25px;
-            padding: 0.75rem 1.5rem;
-            border: 2px solid #e9ecef;
-            transition: all 0.3s ease;
+        
+        .header-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1rem 0;
+            margin-bottom: 1rem;
         }
-        .search-input:focus {
-            border-color: #667eea;
-            box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+        
+        .filter-card {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            padding: 1rem;
+            margin-bottom: 1rem;
         }
-        .btn-filter {
-            border-radius: 20px;
-            padding: 0.5rem 1rem;
+        
+        .stats-section {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            padding: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .stat-card {
+            text-align: center;
+            padding: 0.5rem;
+            border-radius: 6px;
             margin: 0.25rem;
-            border: 2px solid transparent;
-            transition: all 0.3s ease;
+            transition: transform 0.2s ease;
         }
-        .btn-filter.active {
+        
+        .stat-card:hover {
+            transform: translateY(-1px);
+        }
+        
+        .stat-fresh { background: #4CAF50; color: white; }
+        .stat-dairy { background: #FF6B6B; color: white; }
+        .stat-dry { background: #6C7B7F; color: white; }
+        .stat-frozen { background: #FFD93D; color: #333; }
+        .stat-others { background: #17A2B8; color: white; }
+        
+        .stat-number {
+            font-size: 1.4rem;
+            font-weight: bold;
+            margin-bottom: 0.1rem;
+        }
+        
+        .stat-label {
+            font-size: 0.75rem;
+        }
+        
+        .items-container {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .items-header {
+            background: #495057;
+            color: white;
+            padding: 0.75rem 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .items-list {
+            max-height: 500px;
+            overflow-y: auto;
+        }
+        
+        .item-card {
+            border-bottom: 1px solid #eee;
+            padding: 0.5rem 1rem;
+            transition: background-color 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 0.85rem;
+        }
+        
+        .item-card:hover {
+            background-color: #f8f9fa;
+        }
+        
+        .item-card:last-child {
+            border-bottom: none;
+        }
+        
+        .item-type-badge {
+            padding: 0.2rem 0.5rem;
+            border-radius: 12px;
+            font-size: 0.65rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+            min-width: 60px;
+            text-align: center;
+        }
+        
+        .badge-fresh { background-color: #4CAF50; color: white; }
+        .badge-dairy { background-color: #FF6B6B; color: white; }
+        .badge-dry { background-color: #6C7B7F; color: white; }
+        .badge-frozen { background-color: #FFD93D; color: #333; }
+        .badge-others { background-color: #17A2B8; color: white; }
+        
+        .item-details {
+            flex: 1;
+            display: grid;
+            grid-template-columns: 2fr 1fr 0.8fr 0.8fr 0.8fr;
+            gap: 0.75rem;
+            align-items: center;
+        }
+        
+        .item-name {
+            font-weight: 600;
+            color: #333;
+            font-size: 0.85rem;
+            line-height: 1.2;
+        }
+        
+        .item-date {
+            color: #6c757d;
+            font-size: 0.75rem;
+        }
+        
+        .item-unit {
+            background-color: #e9ecef;
+            padding: 0.15rem 0.4rem;
+            border-radius: 10px;
+            font-size: 0.7rem;
+            text-align: center;
+            color: #495057;
+        }
+        
+        .item-weight {
+            font-weight: 600;
+            color: #495057;
+            text-align: center;
+            font-size: 0.8rem;
+        }
+        
+        .item-amount {
+            text-align: center;
+            font-weight: 600;
+            color: #28a745;
+            font-size: 0.8rem;
+        }
+        
+        .filter-btn {
+            border-radius: 15px;
+            padding: 0.4rem 0.8rem;
+            margin: 0.15rem;
+            border: 1px solid transparent;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            font-size: 0.8rem;
+        }
+        
+        .filter-btn.active {
             background-color: #667eea;
             border-color: #667eea;
             color: white;
+            transform: translateY(-1px);
+            box-shadow: 0 2px 6px rgba(102, 126, 234, 0.3);
         }
-        .table-responsive {
-            border-radius: 10px;
+        
+        .search-input {
+            border-radius: 15px;
+            padding: 0.5rem 1rem;
+            border: 1px solid #e9ecef;
+            transition: all 0.3s ease;
+            font-size: 0.85rem;
         }
+        
+        .search-input:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 0.15rem rgba(102, 126, 234, 0.25);
+        }
+        
         .no-results {
             text-align: center;
-            padding: 3rem;
+            padding: 2rem;
             color: #6c757d;
         }
+        
+        .clear-filters {
+            color: #dc3545;
+            text-decoration: none;
+            font-size: 0.8rem;
+        }
+        
+        .clear-filters:hover {
+            color: #c82333;
+            text-decoration: underline;
+        }
+        
+        h1 { font-size: 1.5rem; margin-bottom: 0.5rem; }
+        h3 { font-size: 1.2rem; margin-bottom: 0; }
+        h5 { font-size: 1rem; margin-bottom: 0.75rem; }
+        .form-label { font-size: 0.8rem; margin-bottom: 0.3rem; }
+        .form-select, .form-control { font-size: 0.85rem; padding: 0.4rem 0.75rem; }
     </style>
 </head>
 <body>
-    <div class="header">
+    <div class="header-section">
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-md-8">
-                    <h1 class="mb-2"><i class="bi bi-receipt"></i> Bill Data Viewer</h1>
-                    <p class="mb-0">View and manage your inventory and purchase data</p>
+                    <h1 class="mb-1"><i class="bi bi-receipt"></i> Inventory & Purchase Data</h1>
+                    <p class="mb-0 small">View and manage your inventory with advanced filtering</p>
                 </div>
                 <div class="col-md-4 text-end">
-                    <div class="stats-card d-inline-block">
-                        <div class="stats-number" id="totalItems">0</div>
-                        <div class="stats-label">Total Items</div>
-                    </div>
+                    <h3 id="totalItemsDisplay">0 Items</h3>
+                    <small>Total in current view</small>
                 </div>
             </div>
         </div>
     </div>
 
     <div class="container">
-        <!-- Statistics Cards -->
-        <div class="row mb-4" id="statsCards">
-            <!-- Stats will be populated here -->
+        <!-- Statistics Section -->
+        <div class="stats-section">
+            <h5><i class="bi bi-bar-chart"></i> Statistics by Category</h5>
+            <div class="row" id="statsContainer">
+                <!-- Stats will be populated here -->
+            </div>
         </div>
 
         <!-- Filter Section -->
-        <div class="filter-section">
+        <div class="filter-card">
             <div class="row">
-                <div class="col-md-6 mb-3">
+                <div class="col-md-6 mb-2">
                     <label for="searchInput" class="form-label fw-bold">
                         <i class="bi bi-search"></i> Search Items
                     </label>
                     <input type="text" id="searchInput" class="form-control search-input" 
                            placeholder="Search by item name...">
                 </div>
-                <div class="col-md-3 mb-3">
+                <div class="col-md-3 mb-2">
                     <label for="dateFilter" class="form-label fw-bold">
                         <i class="bi bi-calendar"></i> Filter by Date
                     </label>
@@ -136,7 +261,7 @@
                         <option value="">All Dates</option>
                     </select>
                 </div>
-                <div class="col-md-3 mb-3">
+                <div class="col-md-3 mb-2">
                     <label for="unitFilter" class="form-label fw-bold">
                         <i class="bi bi-rulers"></i> Filter by Unit
                     </label>
@@ -147,9 +272,14 @@
             </div>
             <div class="row">
                 <div class="col-12">
-                    <label class="form-label fw-bold">
-                        <i class="bi bi-tags"></i> Filter by Type
-                    </label>
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <label class="form-label fw-bold mb-0">
+                            <i class="bi bi-tags"></i> Filter by Food Type
+                        </label>
+                        <a href="#" class="clear-filters" onclick="clearAllFilters()">
+                            <i class="bi bi-x-circle"></i> Clear All Filters
+                        </a>
+                    </div>
                     <div id="typeFilters">
                         <!-- Type filter buttons will be populated here -->
                     </div>
@@ -157,28 +287,19 @@
             </div>
         </div>
 
-        <!-- Data Table -->
-        <div class="data-table">
-            <div class="table-responsive">
-                <table class="table table-hover mb-0" id="dataTable">
-                    <thead>
-                        <tr>
-                            <th>Date</th>
-                            <th>Item</th>
-                            <th>Unit</th>
-                            <th>Weight</th>
-                            <th>Type</th>
-                        </tr>
-                    </thead>
-                    <tbody id="tableBody">
-                        <!-- Data will be populated here -->
-                    </tbody>
-                </table>
+        <!-- Items List -->
+        <div class="items-container">
+            <div class="items-header">
+                <h5 class="mb-0"><i class="bi bi-list-ul"></i> Items List</h5>
+                <span id="resultCount">0 items found</span>
+            </div>
+            <div class="items-list" id="itemsList">
+                <!-- Items will be populated here -->
             </div>
             <div id="noResults" class="no-results d-none">
-                <i class="bi bi-search" style="font-size: 3rem; color: #dee2e6;"></i>
+                <i class="bi bi-search" style="font-size: 2rem; color: #dee2e6;"></i>
                 <h4>No items found</h4>
-                <p>Try adjusting your search criteria</p>
+                <p>Try adjusting your search criteria or clearing filters</p>
             </div>
         </div>
     </div>
@@ -188,6 +309,76 @@
         let billData = [];
         let filteredData = [];
 
+        // Type to badge class mapping
+        const typeBadgeMapping = {
+            'Fresh': 'badge-fresh',
+            'Frozen': 'badge-frozen',
+            'Dairy': 'badge-dairy',
+            'Dry Item': 'badge-dry',
+            'Others': 'badge-others'
+        };
+
+        // Type to stat class mapping
+        const typeStatMapping = {
+            'Fresh': 'stat-fresh',
+            'Frozen': 'stat-frozen',
+            'Dairy': 'stat-dairy',
+            'Dry Item': 'stat-dry',
+            'Others': 'stat-others'
+        };
+
+        // Sample pricing data (you can replace this with actual pricing)
+        const pricingData = {
+            'Mc Veg Potato Wedges (5 x 2.5 Kgs)': 450,
+            'Mccain French Fries Regular 9mm': 850,
+            'Frozen Prawns 16/20 (0003)': 380,
+            'Prawns 8/12 (0003)': 420,
+            'BSAS FISH FILLET (0003)': 950,
+            'Delecta Mozrella Cheese Block': 1200,
+            'Capsicum Larg': 80,
+            'Chilli Green': 25,
+            'Coriander': 40,
+            'Cucumber Imp.': 35,
+            'Carrot': 30,
+            'Garlic Peeled': 120,
+            'Lemon': 90,
+            'Mushroom': 180,
+            'Mint': 20,
+            'Onion Large': 150,
+            'Potato Pahari': 100,
+            'Sweet Corn': 60,
+            'Staff Veg.': 80,
+            'Brocolli Imp.': 120,
+            'China Cabbage': 40,
+            'Iceberg Imp.': 60,
+            'Parsely': 30,
+            'Lemon Leaves Imp.': 25,
+            'Red Capsicum': 100,
+            'Yellow Capsicum': 110,
+            'Orange Imp.': 80,
+            'Zukni Green': 45,
+            'Zukni Yellow': 45,
+            'Rich Cooking - Hot Kitchen Appl.': 480,
+            'DHANIA POWDER MDH (500gm)': 85,
+            'HALDI POWDER MDH (500gm)': 75,
+            'KITCHENKING MDH (100gm)': 45,
+            'DEGGI MIRCH MDH (100gm)': 65,
+            'MTR MASALA MDH (100gm)': 55,
+            'CHUNKY CHAT MASALA MDH (100gm)': 40,
+            'GARAM MASALA MDH (100gm)': 50,
+            'KASOORI METHI MDH (100 gm)': 35,
+            'ROSTIP SEASONING (800gm x 10 pkt)': 320,
+            'KISSAN FRESH TOMATO KETCHUP (2kg)': 180,
+            'ROASTED PEANUTS SALTED @12%': 240
+        };
+
+        // Calculate total amount for an item
+        function calculateAmount(item) {
+            const basePrice = pricingData[item.item] || 50; // Default price if not found
+            const weight = parseFloat(item.weight) || 1;
+            return Math.round(basePrice * weight);
+        }
+
         // Load data from JSON file
         async function loadData() {
             try {
@@ -195,12 +386,12 @@
                 billData = await response.json();
                 filteredData = [...billData];
                 initializeFilters();
-                renderTable();
+                renderItems();
                 updateStats();
             } catch (error) {
                 console.error('Error loading data:', error);
-                document.getElementById('tableBody').innerHTML = 
-                    '<tr><td colspan="5" class="text-center text-danger">Error loading data</td></tr>';
+                document.getElementById('itemsList').innerHTML = 
+                    '<div class="text-center text-danger p-4">Error loading data</div>';
             }
         }
 
@@ -212,7 +403,11 @@
             dates.forEach(date => {
                 const option = document.createElement('option');
                 option.value = date;
-                option.textContent = new Date(date).toLocaleDateString();
+                option.textContent = new Date(date).toLocaleDateString('en-US', { 
+                    year: 'numeric', 
+                    month: 'short', 
+                    day: 'numeric' 
+                });
                 dateFilter.appendChild(option);
             });
 
@@ -232,45 +427,58 @@
             
             // Add "All" button
             const allBtn = document.createElement('button');
-            allBtn.className = 'btn btn-filter btn-outline-secondary active';
-            allBtn.textContent = 'All';
+            allBtn.className = 'btn filter-btn btn-outline-secondary active';
+            allBtn.textContent = 'All Types';
             allBtn.onclick = () => filterByType('');
             typeFilters.appendChild(allBtn);
 
             types.forEach(type => {
                 const btn = document.createElement('button');
-                btn.className = 'btn btn-filter btn-outline-secondary';
+                btn.className = 'btn filter-btn btn-outline-secondary';
                 btn.textContent = type;
                 btn.onclick = () => filterByType(type);
                 typeFilters.appendChild(btn);
             });
         }
 
-        // Render table
-        function renderTable() {
-            const tableBody = document.getElementById('tableBody');
+        // Render items list
+        function renderItems() {
+            const itemsList = document.getElementById('itemsList');
             const noResults = document.getElementById('noResults');
+            const resultCount = document.getElementById('resultCount');
             
             if (filteredData.length === 0) {
-                tableBody.innerHTML = '';
+                itemsList.innerHTML = '';
                 noResults.classList.remove('d-none');
+                resultCount.textContent = '0 items found';
                 return;
             }
 
             noResults.classList.add('d-none');
+            resultCount.textContent = `${filteredData.length} items found`;
             
-            tableBody.innerHTML = filteredData.map(item => {
-                const typeClass = `badge-${item.type.toLowerCase().replace(/\s+/g, '')}`;
+            itemsList.innerHTML = filteredData.map(item => {
+                const badgeClass = typeBadgeMapping[item.type] || 'badge-others';
                 const weight = item.weight === null ? 'N/A' : item.weight;
+                const amount = calculateAmount(item);
+                const formattedDate = new Date(item.date).toLocaleDateString('en-US', { 
+                    month: 'short', 
+                    day: 'numeric'
+                });
                 
                 return `
-                    <tr>
-                        <td>${new Date(item.date).toLocaleDateString()}</td>
-                        <td>${item.item}</td>
-                        <td><span class="badge bg-secondary">${item.unit}</span></td>
-                        <td>${weight}</td>
-                        <td><span class="badge ${typeClass}">${item.type}</span></td>
-                    </tr>
+                    <div class="item-card">
+                        <div class="item-type-badge ${badgeClass}">${item.type}</div>
+                        <div class="item-details">
+                            <div>
+                                <div class="item-name">${item.item}</div>
+                                <div class="item-date">${formattedDate}</div>
+                            </div>
+                            <div class="item-unit">${item.unit}</div>
+                            <div class="item-weight">${weight}</div>
+                            <div class="item-amount">₹${amount}</div>
+                        </div>
+                    </div>
                 `;
             }).join('');
         }
@@ -278,7 +486,7 @@
         // Update statistics
         function updateStats() {
             const totalItems = filteredData.length;
-            document.getElementById('totalItems').textContent = totalItems;
+            document.getElementById('totalItemsDisplay').textContent = `${totalItems} Items`;
 
             // Count by type
             const typeCounts = {};
@@ -287,46 +495,46 @@
             });
 
             // Render stats cards
-            const statsCards = document.getElementById('statsCards');
-            statsCards.innerHTML = Object.entries(typeCounts).map(([type, count]) => {
-                const typeClass = `badge-${type.toLowerCase().replace(/\s+/g, '')}`;
+            const statsContainer = document.getElementById('statsContainer');
+            statsContainer.innerHTML = Object.entries(typeCounts).map(([type, count]) => {
+                const statClass = typeStatMapping[type] || 'stat-others';
                 return `
                     <div class="col-md-2 col-sm-4 col-6">
-                        <div class="stats-card">
-                            <div class="stats-number">${count}</div>
-                            <div class="stats-label">
-                                <span class="badge ${typeClass}">${type}</span>
-                            </div>
+                        <div class="stat-card ${statClass}">
+                            <div class="stat-number">${count}</div>
+                            <div class="stat-label">${type}</div>
                         </div>
                     </div>
                 `;
             }).join('');
         }
 
-        // Search functionality
-        function searchItems(query) {
-            const searchTerm = query.toLowerCase();
-            filteredData = billData.filter(item => 
-                item.item.toLowerCase().includes(searchTerm)
-            );
-            applyFilters();
-        }
-
         // Filter by type
         function filterByType(type) {
             // Update active button
-            document.querySelectorAll('.btn-filter').forEach(btn => {
+            document.querySelectorAll('.filter-btn').forEach(btn => {
                 btn.classList.remove('active');
             });
             event.target.classList.add('active');
 
-            // Apply filter
-            if (type === '') {
-                filteredData = [...billData];
-            } else {
-                filteredData = billData.filter(item => item.type === type);
-            }
             applyFilters();
+        }
+
+        // Clear all filters
+        function clearAllFilters() {
+            document.getElementById('searchInput').value = '';
+            document.getElementById('dateFilter').value = '';
+            document.getElementById('unitFilter').value = '';
+            
+            // Reset type filter to "All"
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.querySelector('.filter-btn').classList.add('active');
+            
+            filteredData = [...billData];
+            renderItems();
+            updateStats();
         }
 
         // Apply all filters
@@ -352,21 +560,18 @@
             }
 
             // Apply type filter (check active button)
-            const activeTypeBtn = document.querySelector('.btn-filter.active');
-            if (activeTypeBtn && activeTypeBtn.textContent !== 'All') {
+            const activeTypeBtn = document.querySelector('.filter-btn.active');
+            if (activeTypeBtn && activeTypeBtn.textContent !== 'All Types') {
                 data = data.filter(item => item.type === activeTypeBtn.textContent);
             }
 
             filteredData = data;
-            renderTable();
+            renderItems();
             updateStats();
         }
 
         // Event listeners
-        document.getElementById('searchInput').addEventListener('input', (e) => {
-            applyFilters();
-        });
-
+        document.getElementById('searchInput').addEventListener('input', applyFilters);
         document.getElementById('dateFilter').addEventListener('change', applyFilters);
         document.getElementById('unitFilter').addEventListener('change', applyFilters);
 
