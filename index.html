@@ -91,7 +91,7 @@
             transition: background-color 0.2s ease;
             display: flex;
             align-items: center;
-            gap: 0.75rem;
+            gap: 0.5rem;
             font-size: 0.85rem;
         }
         
@@ -123,9 +123,25 @@
         .item-details {
             flex: 1;
             display: grid;
-            grid-template-columns: 2fr 1fr 0.8fr 0.8fr 0.8fr;
+            grid-template-columns: 2fr 0.8fr 0.8fr 0.8fr;
             gap: 0.75rem;
             align-items: center;
+        }
+        
+        .item-badges {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .item-date-badge {
+            background-color: #f8f9fa;
+            color: #495057;
+            padding: 0.2rem 0.5rem;
+            border-radius: 10px;
+            font-size: 0.65rem;
+            font-weight: 500;
+            border: 1px solid #dee2e6;
         }
         
         .item-name {
@@ -133,11 +149,6 @@
             color: #333;
             font-size: 0.85rem;
             line-height: 1.2;
-        }
-        
-        .item-date {
-            color: #6c757d;
-            font-size: 0.75rem;
         }
         
         .item-unit {
@@ -468,12 +479,12 @@
                 
                 return `
                     <div class="item-card">
-                        <div class="item-type-badge ${badgeClass}">${item.type}</div>
+                        <div class="item-badges">
+                            <div class="item-type-badge ${badgeClass}">${item.type}</div>
+                            <div class="item-date-badge">${formattedDate}</div>
+                        </div>
                         <div class="item-details">
-                            <div>
-                                <div class="item-name">${item.item}</div>
-                                <div class="item-date">${formattedDate}</div>
-                            </div>
+                            <div class="item-name">${item.item}</div>
                             <div class="item-unit">${item.unit}</div>
                             <div class="item-weight">${weight}</div>
                             <div class="item-amount">₹${amount}</div>
