@@ -474,14 +474,15 @@
                 const amount = calculateAmount(item);
                 const formattedDate = new Date(item.date).toLocaleDateString('en-US', { 
                     month: 'short', 
-                    day: 'numeric'
+                    day: 'numeric',
+                    year: 'numeric'
                 });
                 
                 return `
                     <div class="item-card">
                         <div class="item-badges">
-                            <div class="item-type-badge ${badgeClass}">${item.type}</div>
                             <div class="item-date-badge">${formattedDate}</div>
+                            <div class="item-type-badge ${badgeClass}">${item.type}</div>
                         </div>
                         <div class="item-details">
                             <div class="item-name">${item.item}</div>
